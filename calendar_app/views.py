@@ -6,7 +6,8 @@ from django.utils import timezone
 
 # Home view to display events and information about Code Institute
 def home(request):
-    events = CalendarWindow.objects.filter(is_event=True)  # Adjust this query as needed
+    events = CalendarWindow.objects.filter(is_event=True)[:6]  # Adjust this query as needed
+    print("Number of events fetched:", events.count()) 
     return render(request, 'calendar_app/home.html', {
         'events': events,
         'current_year': timezone.now().year,
