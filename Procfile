@@ -1,1 +1,1 @@
-web: gunicorn proj_name.wsgi
+web: gunicorn advent_calendar.wsgi
