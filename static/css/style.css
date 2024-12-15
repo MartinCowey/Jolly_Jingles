@@ -20,7 +20,13 @@
 
 /*home*/
 
-.row.bg-danger.text-white.py-3 {
+.row.bg-danger {
     height: 300px;
 }
+
+.bg-danger {
+    padding-top: 60px;
+    padding: 50px; /* Adjust vertical padding if needed */
+}
+
 
