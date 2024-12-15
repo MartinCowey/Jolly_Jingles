@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Advent Calendar</h1>
+    <div class="calendar">
+        {% for window in windows %}
+            <a href="{% url 'window_detail' window.number %}">
+                {{ window.number }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
