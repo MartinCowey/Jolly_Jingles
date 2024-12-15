@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Window {{ window.number }}</h1>
+    <p>{{ window.content }}</p>
+    {% if window.image %}
+        <img src="{{ window.image.url }}" alt="Window image">
+    {% endif %}
+    {% if window.video %}
+        <video src="{{ window.video.url }}" controls></video>
+    {% endif %}
+{% endblock %}
