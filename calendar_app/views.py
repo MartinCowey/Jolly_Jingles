@@ -59,18 +59,19 @@ def create_event(request):
         form = EventEditForm(request.POST, request.FILES)
         if form.is_valid():
             event = form.save(commit=False)  # Save the form but don't commit yet
-            # Get the date from the POST data
-            event.date = request.POST.get('date')  # Ensure you have a 'date' field in your model
-            event.save()  # Now save the instance with the date included
-            return redirect('home')  # Redirect after successful creation
+            event.number = request.POST.get('number')  # Get the number from POST data
+            event.date = request.POST.get('date')      # Get the date from POST data
+            event.is_event = request.POST.get('is_event') == 'on'  # Get the is_event from POST data (checkbox)
+            event.save()                               # Now save the instance with all fields included
+            return redirect('home')                    # Redirect after successful creation
         else:
-            # If the form is invalid, re-render the form with errors
             return render(request, 'calendar_app/create_event.html', {'form': form})
     else:
-        # If it's a GET request, render an empty form
-        form = EventEditForm()
+        form = EventEditForm()  # Render an empty form
     
     return render(request, 'calendar_app/create_event.html', {'form': form})
+
+
 
 def your_view(request, window_number):
     window = get_object_or_404(CalendarWindow, number=window_number)
