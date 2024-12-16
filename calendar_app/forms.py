@@ -4,12 +4,12 @@ from .models import CalendarWindow, EventAttendance
 class CalendarWindowForm(forms.ModelForm):
     class Meta:
         model = CalendarWindow
-        fields = ['number', 'content', 'is_event', 'date', 'image', 'video']  # Include all fields
+        fields = ['number', 'content', 'is_event', 'date', 'image', 'video']  # Include title here
 
 class EventEditForm(forms.ModelForm):
     class Meta:
         model = CalendarWindow
-        fields = ['content', 'image', 'video']  # Exclude 'date' from here
+        fields = ['number', 'is_event', 'content', 'image', 'video']  # Include title here
 
 class AttendanceForm(forms.ModelForm):
     class Meta:
