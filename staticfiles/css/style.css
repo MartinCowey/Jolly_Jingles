@@ -1,0 +1,91 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+
+
+/* Custom styles for the navbar */
+.navbar {
+    border-radius: 10px; /* Rounded edges */
+    padding: 10px 20px; /* Padding for spacing */
+    margin: 10px; /* Margin to separate from edges */
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 15px; /* Add padding to nav links */
+}
+
+.form-inline {
+    margin-left: auto; /* Aligns the search form to the right */
+}
+
+.form-control {
+    width: 200px; /* Set a fixed width for the search input */
+}
+
+
+/*home*/
+
+.row.bg-danger {
+    height: 300px;
+}
+
+.bg-danger {
+    padding-top: 60px;
+    padding: 50px; /* Adjust vertical padding if needed */
+}
+
+
+/*footer*/
+
+/* .footer.mt-auto.py-3.custom-footer {
+    background-color: #4CAF50;
+    color: white;
+   
+} */
+
+
+.custom-footer {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+}
+.custom-footer a {
+    color: white; /* White links */
+    text-decoration: none; /* Remove underline from links */
+}
+.custom-footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+.custom-footer .social-icons {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center the icons horizontally */
+}
+.custom-footer .social-icons a {
+    margin: 0 10px; /* Add horizontal spacing between icons */
+}
+.custom-footer .fa-lg {
+    font-size: 1.5em; /* Increase icon size */
+}
+.custom-footer a .fab {
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+.custom-footer a:hover .fab {
+    transform: scale(1.2); /* Scale up icon on hover */
+}
+/* Footer Bottom Section */
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.footer-bottom p {
+    margin: 0.5rem 0;
+}
