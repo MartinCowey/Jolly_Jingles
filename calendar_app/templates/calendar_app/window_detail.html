@@ -12,7 +12,6 @@
                 <div class="card-body">
                     <p>{{ window.content }}</p>
                     <p>Date: {{ window.date }}</p>
-                    <!-- <p>Is Event: {{ window.is_event }}</p> -->
 
                     {% if window.image %}
                         <img src="{{ window.image.url }}" alt="Window image" class="img-fluid mt-3">
@@ -22,21 +21,51 @@
                         <video src="{{ window.video.url }}" controls class="w-100 mt-3"></video>
                     {% endif %}
 
+                    <!-- Combined Rating and Review Form -->
+                    <h4>Event Ratings and Reviews:</h4>
+<ul>
+    {% for rating in window.rating_set.all %}
+        <li>Rating: {{ rating.score }} - 
+            {% if rating.user %}
+                By: {{ rating.user.username }}
+            {% else %}
+                Anonymous
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for review in window.review_set.all %}
+        <li>Review: {{ review.text }} - 
+            {% if review.user %}
+                By: {{ review.user.username }}
+            {% else %}
+                Anonymous
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form|crispy }}
-                        <div class="text-center mt-3">
-                            <div class="d-inline-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+                        {{ rating_form|crispy }}
+                        {{ review_form|crispy }}
+                        <button type="submit" class="btn btn-primary">Submit Rating and Review</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <div class="d-inline-flex justify-content-center">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'home' %}" class="btn btn-primary me-2">Home</a>
                                 {% if window.number %}
-                                <a href="{% url 'edit_event' window.number %}" class="btn btn-danger ms-2">Edit Event</a>
+                                    <a href="{% url 'edit_event' window.number %}" class="btn btn-danger ms-2">Edit Event</a>
                                 {% endif %}
                                 <a href="{% url 'delete_event' window.number %}" class="btn btn-danger ms-2">Delete Event</a>
-
-                            </div>
+                            {% else %}
+                                <p class="text-danger">Log in to edit this event.</p>
+                            {% endif %}
                         </div>
-                    </form>
-                    
+                        
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class CalendarWindow(models.Model):
-    number = models.AutoField(primary_key=True)  # Automatically increments
+    number = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, default='Untitled')
     content = models.TextField()
     is_event = models.BooleanField()
@@ -13,18 +13,16 @@ class CalendarWindow(models.Model):
 
     def __str__(self):
         return self.title
-
-
+        
 
 class Rating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Allow null and blank
     window = models.ForeignKey(CalendarWindow, on_delete=models.CASCADE)
-    score = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    score = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # 1 to 5 stars
     date_rated = models.DateTimeField(auto_now_add=True)
 
-
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Allow null and blank
     window = models.ForeignKey(CalendarWindow, on_delete=models.CASCADE)
     text = models.TextField()
     date_reviewed = models.DateTimeField(auto_now_add=True)
