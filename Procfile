@@ -1,1 +1,1 @@
-web: gunicorn advent_calendar.wsgi
+web: gunicorn advent_calendar.wsgi --log-file -
