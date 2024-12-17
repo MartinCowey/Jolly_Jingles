@@ -89,3 +89,9 @@ main {
 .footer-bottom p {
     margin: 0.5rem 0;
 }
+
+/*events*/
+
+.events {
+    width: 60%;
+}
