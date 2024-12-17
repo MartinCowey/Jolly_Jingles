@@ -14,15 +14,34 @@ def home(request):
         'current_year': timezone.now().year,
     })
 
+
 class CalendarListView(LoginRequiredMixin, ListView):
     model = CalendarWindow
     template_name = 'calendar_app/calendar_list.html'
     context_object_name = 'windows'
 
+
 class CalendarWindowDetailView(LoginRequiredMixin, DetailView):
     model = CalendarWindow
     template_name = 'calendar_app/window_detail.html'
     context_object_name = 'window'
+
+
+def create_event(request):
+    if request.method == 'POST':
+        form = EventEditForm(request.POST, request.FILES)
+        if form.is_valid():
+            event = form.save(commit=False)  # Don't commit yet
+            event.date = request.POST.get('date')  # Get the date from POST data
+            event.save()  # Now save the instance with all fields included
+            return redirect('home')  # Redirect after successful creation
+    else:
+        form = EventEditForm()  # Render an empty form
+        # Dynamically exclude 'title' and 'date' fields
+        form.fields.pop('title')
+        form.fields.pop('date')
+
+    return render(request, 'calendar_app/create_event.html', {'form': form})
 
 def edit_event(request, event_id):
     event = get_object_or_404(CalendarWindow, number=event_id)
@@ -30,14 +49,24 @@ def edit_event(request, event_id):
         event_form = EventEditForm(request.POST, request.FILES, instance=event)
         attendance_form = AttendanceForm(request.POST)
         if event_form.is_valid() and attendance_form.is_valid():
-            event_form.save()
+            # Save the event
+            updated_event = event_form.save(commit=False)
+            updated_event.is_event = True  # Explicitly set this field
+            updated_event.save()
+
+            # Save attendance
             attendance = attendance_form.save(commit=False)
             attendance.user = request.user  # Assuming the user is logged in
             attendance.window = event
             attendance.save()
-            return redirect('window_detail', pk=event.id)
+
+            return redirect('home')  # Redirect to home after saving changes
     else:
         event_form = EventEditForm(instance=event)
+        # Exclude fields dynamically
+        event_form.fields.pop('title')
+        event_form.fields.pop('date')
+
         attendance_instance = EventAttendance.objects.filter(
             user=request.user, window=event
         ).first()
@@ -54,23 +83,13 @@ def edit_event(request, event_id):
     }
     return render(request, 'calendar_app/edit_event.html', context)
 
-def create_event(request):
-    if request.method == 'POST':
-        form = EventEditForm(request.POST, request.FILES)
-        if form.is_valid():
-            event = form.save(commit=False)  # Save the form but don't commit yet
-            event.number = request.POST.get('number')  # Get the number from POST data
-            event.date = request.POST.get('date')      # Get the date from POST data
-            event.is_event = request.POST.get('is_event') == 'on'  # Get the is_event from POST data (checkbox)
-            event.save()                               # Now save the instance with all fields included
-            return redirect('home')                    # Redirect after successful creation
-        else:
-            return render(request, 'calendar_app/create_event.html', {'form': form})
-    else:
-        form = EventEditForm()  # Render an empty form
-    
-    return render(request, 'calendar_app/create_event.html', {'form': form})
 
+def delete_event(request, event_id):
+    event = get_object_or_404(CalendarWindow, number=event_id)
+    if request.method == 'POST':
+        event.delete()  # Delete the event from the database
+        return redirect('home')  # Redirect to home or another page after deletion
+    return render(request, 'calendar_app/delete_event.html', {'event': event})
 
 
 def your_view(request, window_number):

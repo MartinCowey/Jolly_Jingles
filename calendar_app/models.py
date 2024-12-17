@@ -3,27 +3,17 @@ from django.contrib.auth.models import User
 
 
 class CalendarWindow(models.Model):
-    number = models.IntegerField(
-        primary_key=True,
-        choices=[(i, i) for i in range(1, 25)]
-    )
-    title = models.CharField(max_length=255, default='Untitled')  # Set a default value
+    number = models.AutoField(primary_key=True)  # Automatically increments
+    title = models.CharField(max_length=255, default='Untitled')
     content = models.TextField()
     is_event = models.BooleanField()
     date = models.DateTimeField(null=True)
-    image = models.ImageField(
-        upload_to='calendar_images/',
-        null=True,
-        blank=True
-    )
-    video = models.FileField(
-        upload_to='calendar_videos/',
-        null=True,
-        blank=True
-    )
+    image = models.ImageField(upload_to='calendar_images/', null=True, blank=True)
+    video = models.FileField(upload_to='calendar_videos/', null=True, blank=True)
 
     def __str__(self):
         return self.title
+
 
 
 class Rating(models.Model):
