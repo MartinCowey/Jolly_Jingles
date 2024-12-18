@@ -66,7 +66,8 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'home'  # or any URL you want to redirect to
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
