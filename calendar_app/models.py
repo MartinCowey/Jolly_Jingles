@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 class CalendarWindow(models.Model):
@@ -8,7 +9,7 @@ class CalendarWindow(models.Model):
     content = models.TextField()
     is_event = models.BooleanField()
     date = models.DateTimeField(null=True)
-    image = models.ImageField(upload_to='calendar_images/', null=True, blank=True)
+    image = CloudinaryField('image', null=True, blank=True)
     video = models.FileField(upload_to='calendar_videos/', null=True, blank=True)
 
     def __str__(self):
