@@ -30,6 +30,7 @@ class CalendarWindowDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'window'
 
 
+@login_required
 def create_event(request):
     if request.method == 'POST':
         form = EventEditForm(request.POST, request.FILES)
@@ -47,6 +48,7 @@ def create_event(request):
         form.fields.pop('date')
 
     return render(request, 'calendar_app/create_event.html', {'form': form})
+    
 
 def edit_event(request, event_id):
     # Get the CalendarWindow object

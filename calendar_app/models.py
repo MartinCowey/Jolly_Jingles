@@ -14,16 +14,17 @@ class CalendarWindow(models.Model):
 
     def __str__(self):
         return self.title
-        
+
 
 class Rating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Allow null and blank
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     window = models.ForeignKey(CalendarWindow, on_delete=models.CASCADE)
-    score = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # 1 to 5 stars
+    score = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     date_rated = models.DateTimeField(auto_now_add=True)
 
+
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Allow null and blank
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     window = models.ForeignKey(CalendarWindow, on_delete=models.CASCADE)
     text = models.TextField()
     date_reviewed = models.DateTimeField(auto_now_add=True)
