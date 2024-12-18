@@ -1,3 +1,8 @@
+{% url 'about' as about_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -35,14 +40,14 @@
     </button>    
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto"> <!-- Use 'me-auto' for Bootstrap 5 -->
+        <ul class="navbar-nav me-auto"> 
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Review</a>
             </li>
-            <li><a class="nav-link" href="{% url 'calendar_list' %}">Calendar</a></li>
+            <li><a class="nav-link" href="{% url 'calendar_list' %}">Event manager</a></li>
             {% if user.is_authenticated %}
                 <li><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
             {% else %}
