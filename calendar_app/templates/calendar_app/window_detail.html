@@ -21,7 +21,7 @@
                     {% if window.video %}
                         <video src="{{ window.video.url }}" controls class="w-100 mt-3"></video>
                     {% endif %}
-
+                    
                     <!-- Combined Rating and Review Form -->
                     <h4>Event Ratings and Reviews:</h4>
 <ul>
@@ -46,6 +46,10 @@
         </li>
     {% endfor %}
 </ul>
+                    <br>
+                    <a href="https://sarahcemm.github.io/TeamofNineteen/" target="_blank" class="styled-link">Christmas Fun</a>
+
+                    <br>
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ rating_form|crispy }}
