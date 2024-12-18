@@ -95,3 +95,10 @@ main {
 .events {
     width: 60%;
 }
+
+.styled-link {
+    color: red;            /* Makes the text red */
+    font-size: 24px;       /* Makes the font size larger */
+    text-decoration: none; /* Removes underline */
+}
+
