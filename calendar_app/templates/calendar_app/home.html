@@ -8,10 +8,13 @@
     <!-- Colour Bar -->
     <div class="row bg-danger text-white mt-5">
         <div class="col-md-6 text-center">
-            <h4>EVENTS</h4>
+            <h1>What's on</h1>
+            <img src="{% static 'images/code_icon_1.png' %}" alt="code Institute logo">
         </div>
         <div class="col-md-6 text-right">
-            <p>The Code Institute offers a 16-week full stack developer course that equips you with the skills needed to excel in the tech industry.</p>
+            <h2>Welcome to The Code Institute.</h2>
+            <hr>
+            <h3>Here you can find the upcoming events we are hosting for our students on the 16 Week fullstack developer course.</h3>
         </div>
     </div>
 
@@ -48,7 +51,11 @@
     <!-- Create Event Button -->
     <div class="container-fluid">
         <div class="col-12 text-center">
-            <a href="{% url 'create_event' %}" class="btn btn-danger">Create Event</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'create_event' %}" class="btn btn-danger">Create Event</a>
+            {% else %}
+                <p class="text-danger">Log in to create an event.</p>
+            {% endif %}
         </div>
     </div>
 
@@ -58,7 +65,7 @@
             <p>Some more words.</p>
         </div>
         <div class="col-md-6 text-center">
-            <h4>HEADING</h4>
+            <img src="{% static 'images/code_log_1.png' %}" alt="code Institute logo">
         </div>
     </div>
 </div>
